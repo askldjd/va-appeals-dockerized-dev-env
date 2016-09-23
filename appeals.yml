@@ -1,0 +1,52 @@
+appeals-postgres:
+  image: postgres:9.3.14
+  ports:
+    - "5432:5432"
+  volumes:
+   - ~/work/va/pg-data:/var/lib/postgressql/data
+  environment:
+   - POSTGRES_PASSWORD=postgres
+   - PGDATA=/var/lib/postgressql/data
+  ports:
+   - "5432:5432"
+
+appeals-redis:
+  image: redis:2.8.23
+  ports:
+    - "6379:6379"
+
+appeals-efolder-dev:
+  image: appeals-dev-img
+  ports:
+   - 3001:3000
+  volumes:
+   - ~/work/va:/work/va
+   - ~/work/va/gem:/home/askldjd/.gem
+   - /tmp/.X11-unix/:/tmp/.X11-unix/
+   - /dev/shm:/dev/shm
+  environment:
+   - DISPLAY=${DISPLAY}
+  links:
+   - appeals-redis
+   - appeals-postgres
+  container_name: appeals-efolder-dev
+  entrypoint: /bin/bash
+  command: -c "tail -f /dev/null"
+
+appeals-case-cert-dev:
+  image: appeals-dev-img
+  ports:
+   - 3000:3000
+  volumes:
+   - ~/work/va:/work/va
+   - ~/work/va/gem:/home/askldjd/.gem
+   - /tmp/.X11-unix/:/tmp/.X11-unix/
+   - /dev/shm:/dev/shm
+  environment:
+   - DISPLAY=${DISPLAY}
+  links:
+   - appeals-redis
+   - appeals-postgres
+  container_name: appeals-case-cert-dev
+  entrypoint: /bin/bash
+  command: -c "tail -f /dev/null"
