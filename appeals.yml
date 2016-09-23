@@ -20,8 +20,8 @@ appeals-efolder-dev:
   ports:
    - 3001:3000
   volumes:
+    # Modify this mount location to your work folder
    - ~/work/va:/work/va
-   - ~/work/va/gem:/home/askldjd/.gem
    - /tmp/.X11-unix/:/tmp/.X11-unix/
    - /dev/shm:/dev/shm
   environment:
@@ -38,8 +38,8 @@ appeals-case-cert-dev:
   ports:
    - 3000:3000
   volumes:
+    # Modify this mount location to your work folder
    - ~/work/va:/work/va
-   - ~/work/va/gem:/home/askldjd/.gem
    - /tmp/.X11-unix/:/tmp/.X11-unix/
    - /dev/shm:/dev/shm
   environment:

@@ -1,4 +1,8 @@
 #!/bin/sh
+
+#
+# Test run the appeals container in isolation.
+#
 docker run \
     --rm \
     -it \
