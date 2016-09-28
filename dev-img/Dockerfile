@@ -26,7 +26,19 @@ RUN apt-get update && apt-get install -y \
 	libpq-dev \
 	iputils-ping \
 	netcat \
-	libsqlite3-dev
+	libsqlite3-dev \
+	pdftk \
+	chrpath \
+	libxft-dev
+
+################################################################################
+# Phantom JS
+################################################################################
+ENV PHANTOM_JS phantomjs-2.1.1-linux-x86_64
+RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+RUN tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2
+RUN mv phantomjs-2.1.1-linux-x86_64 /usr/local/share
+RUN ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin
 
 ################################################################################
 # Ruby 2.3, copied from the Ruby Dockerhub (https://hub.docker.com/_/ruby/)
@@ -101,6 +113,8 @@ ENV PATH $BUNDLE_BIN:$PATH
 RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 	&& chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
 
+COPY instantclient_12_1/ /opt/oracle/instantclient_11_2
+RUN ln -s /opt/oracle/instantclient_11_2/libclntsh.dylib.11.1 /opt/oracle/instantclient_11_2/libclntsh.dylib
 
 ################################################################################
 # Create User askldjd
